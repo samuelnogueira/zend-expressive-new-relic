@@ -4,6 +4,7 @@
 [![Software License][ico-license]](LICENSE)
 [![Build Status][ico-travis]][link-travis]
 [![Quality Score][ico-scrutinizer]][link-scrutinizer]
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/samuelnogueira/new-relic-middleware.svg?style=flat-square)](https://scrutinizer-ci.com/g/samuelnogueira/new-relic-middleware)
 
 PSR-15 Middleware for New Relic instrumentation of PHP middleware apps (e.g. Expressive)
 
@@ -18,6 +19,21 @@ This package is installable and autoloadable via Composer as [samuelnogueira/new
 
 ```sh
 composer require samuelnogueira/new-relic-middleware
+```
+
+## Example
+[Zend Expressive](https://docs.zendframework.com/zend-expressive/)
+```php
+<?php // config/pipeline.php
+
+use Samuelnogueira\NewRelicMiddleware\NewRelicMiddleware;
+
+/**
+ * Setup middleware pipeline:
+ * @var \Zend\Expressive\Application $app
+ */
+$app->pipe(NewRelicMiddleware::class);
+// (...)
 ```
 
 ---
