@@ -1,14 +1,31 @@
 filter:
     paths: [src/*]
 checks:
-    php:
-        code_rating: true
-        duplication: true
+    php: true
 build:
-    tests:
-        override:
-            -
-                command: 'composer test-coverage'
-                coverage:
-                    file: 'coverage.clover'
-                    format: 'clover'
+    environment:
+        postgresql: false
+        redis: false
+    nodes:
+        old:
+            environment:
+                php: 7.0
+            dependencies:
+                override:
+                    - composer update --prefer-lowest --no-interaction
+                    - composer show
+            tests:
+                override:
+                    - composer test
+        fresh:
+            environment:
+                php: 7.2
+            tests:
+                override:
+                    - composer cs-check
+                    -
+                      command: composer test-coverage
+                      coverage:
+                          file: 'tests/reports/coverage.xml'
+                          format: 'clover'
+                    - php-scrutinizer-run
