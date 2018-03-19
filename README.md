@@ -11,7 +11,7 @@ PSR-15 Middleware for New Relic instrumentation of PHP middleware apps (e.g. Exp
 ## Requirements
 
 * PHP >= 7.0
-* A [PSR-15](https://github.com/http-interop/http-middleware) middleware dispatcher (e.g. [Stratigility](https://github.com/zendframework/zend-stratigility))
+* A [PSR-15](https://www.php-fig.org/psr/psr-15/) middleware dispatcher (e.g. [Stratigility](https://github.com/zendframework/zend-stratigility))
 
 ## Installation
 
