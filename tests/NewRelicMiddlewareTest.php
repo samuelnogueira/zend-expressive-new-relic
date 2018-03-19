@@ -2,10 +2,10 @@
 
 namespace Samuelnogueira\NewRelicMiddleware\Tests;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Samuelnogueira\NewRelicMiddleware\NewRelicAgentInterface;
 use Samuelnogueira\NewRelicMiddleware\NewRelicMiddleware;
 
@@ -21,11 +21,11 @@ class NewRelicMiddlewareTest extends TestCase
     {
         $request  = $this->createMock(ServerRequestInterface::class);
         $response = $this->createMock(ResponseInterface::class);
-        $delegate = $this->createMock(DelegateInterface::class);
+        $handler  = $this->createMock(RequestHandlerInterface::class);
 
-        $delegate
+        $handler
             ->expects(static::once())
-            ->method('process')
+            ->method('handle')
             ->with($request)
             ->willReturn($response);
         $this->newRelicAgent
@@ -35,7 +35,7 @@ class NewRelicMiddlewareTest extends TestCase
             ->expects(static::once())
             ->method('endTransaction');
 
-        $result = $this->subject->process($request, $delegate);
+        $result = $this->subject->process($request, $handler);
 
         static::assertSame($response, $result);
     }
