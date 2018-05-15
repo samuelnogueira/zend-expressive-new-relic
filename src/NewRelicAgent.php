@@ -1,6 +1,4 @@
-<?php
-
-namespace Samuelnogueira\NewRelicMiddleware;
+<?php namespace Samuelnogueira\NewRelicMiddleware;
 
 final class NewRelicAgent implements NewRelicAgentInterface
 {
@@ -23,7 +21,6 @@ final class NewRelicAgent implements NewRelicAgentInterface
      * associated account. The license set for this API call will supersede all per-directory and global default
      * licenses configured in INI files.
      * If newrelic extension is not loaded, this method will do nothing.
-     *
      * @see https://docs.newrelic.com/docs/agents/php-agent/configuration/php-agent-api#api-start-txn
      *
      * @param string|null $appname = ini_get('newrelic.appname')
@@ -52,7 +49,6 @@ final class NewRelicAgent implements NewRelicAgentInterface
      * the metrics that have been gathered thus far to be recorded. However, there are times when you may want to end a
      * transaction without doing so. In this case use the second form of the function and set ignore to true.
      * If newrelic extension is not loaded, this method will do nothing.
-     *
      * @see https://docs.newrelic.com/docs/agents/php-agent/configuration/php-agent-api#api-end-txn
      *
      * @param bool $ignore
@@ -66,5 +62,25 @@ final class NewRelicAgent implements NewRelicAgentInterface
         }
 
         return false;
+    }
+
+    /**
+     * Report an error at this line of code, with a complete stack trace.
+     * Only the exception for the last call is retained during the course of a transaction.
+     * Agent version 4.3 enhanced this form to use the exception class as the category for grouping within the New
+     * Relic APM user interface. The exception parameter must be a valid PHP Exception class, and the stack frame
+     * recorded in that class will be the one reported, rather than the stack at the time this function was called.
+     * When using this form, if the error message is empty, a standard message in the same format as created by
+     * Exception::__toString() will be automatically generated.
+     * @link https://docs.newrelic.com/docs/agents/php-agent/configuration/php-agent-api#api-notice-error
+     *
+     * @param string    $string
+     * @param \Throwable $exception [optional]
+     */
+    public function noticeError(string $string, \Throwable $exception = null): void
+    {
+        if ($this->extensionLoaded) {
+            ($exception !== null) ? newrelic_notice_error($string, $exception) : newrelic_notice_error($string);
+        }
     }
 }

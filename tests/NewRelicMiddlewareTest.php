@@ -1,6 +1,4 @@
-<?php
-
-namespace Samuelnogueira\NewRelicMiddleware\Tests;
+<?php namespace Samuelnogueira\NewRelicMiddleware\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -38,6 +36,34 @@ class NewRelicMiddlewareTest extends TestCase
         $result = $this->subject->process($request, $handler);
 
         static::assertSame($response, $result);
+    }
+
+    /**
+     * @expectedException \Error
+     */
+    public function testErrorHandling()
+    {
+        $request      = $this->createMock(ServerRequestInterface::class);
+        $handler      = $this->createMock(RequestHandlerInterface::class);
+        $errorMessage = "Error string message with meanful information";
+        $error        = new \Error($errorMessage);
+
+        $handler
+            ->expects(static::once())
+            ->method('handle')
+            ->with($request)
+            ->will($this->throwException($error));
+        $this->newRelicAgent
+            ->expects(static::once())
+            ->method('startTransaction');
+        $this->newRelicAgent
+            ->expects(static::once())
+            ->method('endTransaction');
+        $this->newRelicAgent
+            ->expects(static::once())
+            ->method('noticeError')->with($errorMessage, $error);
+
+        $this->subject->process($request, $handler);
     }
 
     protected function setUp()

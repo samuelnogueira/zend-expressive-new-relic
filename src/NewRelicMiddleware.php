@@ -1,6 +1,4 @@
-<?php
-
-namespace Samuelnogueira\NewRelicMiddleware;
+<?php namespace Samuelnogueira\NewRelicMiddleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -30,13 +28,18 @@ class NewRelicMiddleware implements MiddlewareInterface
      * @param RequestHandlerInterface $handler
      *
      * @return ResponseInterface
+     * @throws \Throwable
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $this->newRelicAgent->startTransaction();
-        $response = $handler->handle($request);
-        $this->newRelicAgent->endTransaction();
-
-        return $response;
+        try {
+            return $handler->handle($request);
+        } catch (\Throwable $throwable) {
+            $this->newRelicAgent->noticeError($throwable->getMessage(), $throwable);
+            throw $throwable;
+        } finally {
+            $this->newRelicAgent->endTransaction();
+        }
     }
 }
