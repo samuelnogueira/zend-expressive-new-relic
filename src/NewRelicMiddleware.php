@@ -34,12 +34,14 @@ class NewRelicMiddleware implements MiddlewareInterface
     {
         $this->newRelicAgent->startTransaction();
         try {
-            return $handler->handle($request);
+            $response = $handler->handle($request);
+            $this->newRelicAgent->endTransaction();
+
+            return $response;
         } catch (\Throwable $throwable) {
             $this->newRelicAgent->noticeError($throwable->getMessage(), $throwable);
-            throw $throwable;
-        } finally {
             $this->newRelicAgent->endTransaction();
+            throw $throwable;
         }
     }
 }
