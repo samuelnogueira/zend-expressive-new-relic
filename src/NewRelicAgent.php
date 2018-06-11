@@ -49,4 +49,16 @@ final class NewRelicAgent implements NewRelicAgentInterface
             ($exception !== null) ? newrelic_notice_error($string, $exception) : newrelic_notice_error($string);
         }
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function nameTransaction(string $name): bool
+    {
+        if ($this->extensionLoaded) {
+            newrelic_name_transaction($name);
+        }
+
+        return false;
+    }
 }

@@ -53,4 +53,26 @@ interface NewRelicAgentInterface
      * @return void
      */
     public function noticeError(string $string, \Throwable $exception = null): void;
+
+    /**
+     * Set custom name for current transaction.
+     * Sets the name of the transaction to the specified name. This can be useful if you have implemented your own
+     * dispatching scheme and want to name transactions according to their purpose. Call this function as early as
+     * possible.
+     * Do not use brackets [suffix] at the end of your transaction name. New Relic automatically strips brackets from
+     * the name. Instead, use parentheses (suffix) or other symbols if needed. Unique values like URLs, Page Titles,
+     * Hex Values, Session IDs, and uniquely identifiable values should not be used in naming your transactions.
+     * Instead, add that data to the transaction as a custom parameter with the newrelic_add_custom_parameter() call.
+     * Do not create more than 1000 unique transaction names (for example, avoid naming by URL if possible). This will
+     * make your charts less useful, and you may run into limits New Relic sets on the number of unique transaction
+     * names per account. It also can slow down the performance of your application.
+     *
+     * @see https://docs.newrelic.com/docs/agents/php-agent/php-agent-api/newrelic_name_transaction
+     *
+     * @param string $name Required. Name of the transaction.
+     *
+     * @return bool Returns true if the transaction name was successfully changed. If false is returned, check the
+     *              agent log for more information.
+     */
+    public function nameTransaction(string $name): bool;
 }
