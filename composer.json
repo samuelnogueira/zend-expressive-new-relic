@@ -1,5 +1,5 @@
 {
-    "name": "samuelnogueira/new-relic-middleware",
+    "name": "samuelnogueira/zend-expressive-new-relic",
     "description": "PSR-15 Middleware for New Relic instrumentation of PHP middleware apps",
     "type": "library",
     "keywords": [
