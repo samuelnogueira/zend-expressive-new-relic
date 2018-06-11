@@ -1,20 +1,23 @@
-<?php namespace Samuelnogueira\NewRelicMiddleware\Tests;
+<?php namespace Samuelnogueira\ZendExpressiveNewRelic\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Samuelnogueira\NewRelicMiddleware\NewRelicAgentInterface;
-use Samuelnogueira\NewRelicMiddleware\NewRelicMiddleware;
+use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicMiddleware;
+use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
 
 class NewRelicMiddlewareTest extends TestCase
 {
-    /** @var \Samuelnogueira\NewRelicMiddleware\NewRelicMiddleware */
+    /** @var NewRelicMiddleware */
     private $subject;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Samuelnogueira\NewRelicMiddleware\NewRelicAgentInterface */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface */
     private $newRelicAgent;
 
+    /**
+     * @throws \Throwable
+     */
     public function testProcess()
     {
         $request  = $this->createMock(ServerRequestInterface::class);
@@ -40,19 +43,20 @@ class NewRelicMiddlewareTest extends TestCase
 
     /**
      * @expectedException \Error
+     * @throws \Throwable
      */
     public function testErrorHandling()
     {
         $request      = $this->createMock(ServerRequestInterface::class);
         $handler      = $this->createMock(RequestHandlerInterface::class);
-        $errorMessage = "Error string message with meanful information";
+        $errorMessage = "Error string message with meaningful information";
         $error        = new \Error($errorMessage);
 
         $handler
             ->expects(static::once())
             ->method('handle')
             ->with($request)
-            ->will($this->throwException($error));
+            ->will(static::throwException($error));
         $this->newRelicAgent
             ->expects(static::once())
             ->method('startTransaction');

@@ -9,7 +9,7 @@ build:
     nodes:
         old:
             environment:
-                php: 7.0
+                php: 7.1
             dependencies:
                 override:
                     - composer update --prefer-lowest --no-interaction
@@ -17,14 +17,13 @@ build:
             tests:
                 override:
                     - composer test
-        fresh:
+        latest:
             environment:
                 php: 7.2
             tests:
                 override:
                     - composer cs-check
-                    -
-                      command: composer test-coverage
+                    - command: composer test-coverage
                       coverage:
                           file: 'tests/reports/coverage.xml'
                           format: 'clover'

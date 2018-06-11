@@ -1,4 +1,4 @@
-<?php namespace Samuelnogueira\NewRelicMiddleware;
+<?php namespace Samuelnogueira\ZendExpressiveNewRelic;
 
 interface NewRelicAgentInterface
 {
@@ -44,10 +44,13 @@ interface NewRelicAgentInterface
      * recorded in that class will be the one reported, rather than the stack at the time this function was called.
      * When using this form, if the error message is empty, a standard message in the same format as created by
      * Exception::__toString() will be automatically generated.
+     *
      * @link https://docs.newrelic.com/docs/agents/php-agent/configuration/php-agent-api#api-notice-error
      *
      * @param string    $string
      * @param \Throwable $exception [optional]
+     *
+     * @return void
      */
     public function noticeError(string $string, \Throwable $exception = null): void;
 }

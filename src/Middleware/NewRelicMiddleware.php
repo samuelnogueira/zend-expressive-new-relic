@@ -1,23 +1,19 @@
-<?php namespace Samuelnogueira\NewRelicMiddleware;
+<?php namespace Samuelnogueira\ZendExpressiveNewRelic\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
 
 class NewRelicMiddleware implements MiddlewareInterface
 {
     /** @var NewRelicAgentInterface */
     private $newRelicAgent;
 
-    /**
-     * NewRelicMiddleware constructor.
-     *
-     * @param NewRelicAgentInterface $newRelicAgent
-     */
-    public function __construct(NewRelicAgentInterface $newRelicAgent = null)
+    public function __construct(NewRelicAgentInterface $newRelicAgent)
     {
-        $this->newRelicAgent = $newRelicAgent ?: new NewRelicAgent();
+        $this->newRelicAgent = $newRelicAgent;
     }
 
     /**

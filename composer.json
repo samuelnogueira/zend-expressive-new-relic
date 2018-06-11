@@ -1,14 +1,14 @@
 {
     "name": "samuelnogueira/zend-expressive-new-relic",
-    "description": "PSR-15 Middleware for New Relic instrumentation of PHP middleware apps",
+    "description": "Integrates New Relic with Zend Expressive",
     "type": "library",
     "keywords": [
-        "http",
-        "middleware",
-        "psr",
-        "psr-7",
+        "zend",
+        "expressive",
         "psr-15",
-        "newrelic"
+        "new",
+        "relic",
+        "middleware"
     ],
     "require": {
         "php": "^7.0",
@@ -23,12 +23,17 @@
     },
     "autoload": {
         "psr-4": {
-            "Samuelnogueira\\NewRelicMiddleware\\": "src/"
+            "Samuelnogueira\\ZendExpressiveNewRelic\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Samuelnogueira\\NewRelicMiddleware\\Tests\\": "tests/"
+            "Samuelnogueira\\ZendExpressiveNewRelic\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "zf": {
+            "config-provider": "Samuelnogueira\\ZendExpressiveNewRelic\\ConfigProvider"
         }
     },
     "scripts": {
