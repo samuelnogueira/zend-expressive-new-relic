@@ -29,6 +29,7 @@ class NewRelicMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $this->newRelicAgent->startTransaction();
+        $this->newRelicAgent->backgroundJob(false);
         try {
             $response = $handler->handle($request);
             $this->newRelicAgent->endTransaction();

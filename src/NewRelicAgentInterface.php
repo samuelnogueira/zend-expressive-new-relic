@@ -75,4 +75,20 @@ interface NewRelicAgentInterface
      *              agent log for more information.
      */
     public function nameTransaction(string $name): bool;
+
+    /**
+     * Manually specify that a transaction is a background job or a web transaction.
+     * Tell the agent to treat this "web" transaction as a "non-web" transaction (the APM UI separates web and non-web
+     * transactions, for example in the Transactions page). Call as early as possible. This is most commonly used for
+     * cron jobs or other long-lived background tasks. However, this call is usually unnecessary since the agent
+     * usually detects whether a transaction is a web or non-web transaction automatically.
+     * You can also reverse the functionality by setting the optional flag to false, which marks a "non-web"
+     * transaction as a "web" transaction.
+     *
+     * @see https://docs.newrelic.com/docs/agents/php-agent/php-agent-api/newrelic_background_job
+     *
+     * @param bool $flag If ​true or omitted, the current transaction is marked as a background job.
+     *                   If false, the transaction is marked as a web transaction.
+     */
+    public function backgroundJob(bool $flag = true): void;
 }

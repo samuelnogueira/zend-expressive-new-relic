@@ -5,9 +5,6 @@ final class NewRelicAgent implements NewRelicAgentInterface
     /** @var bool */
     private $extensionLoaded;
 
-    /**
-     * NewRelicAgent constructor.
-     */
     public function __construct()
     {
         $this->extensionLoaded = extension_loaded('newrelic');
@@ -60,5 +57,15 @@ final class NewRelicAgent implements NewRelicAgentInterface
         }
 
         return false;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function backgroundJob(bool $flag = true): void
+    {
+        if ($this->extensionLoaded) {
+            newrelic_background_job($flag);
+        }
     }
 }
