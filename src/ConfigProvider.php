@@ -2,6 +2,8 @@
 
 use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicMiddleware;
 use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicMiddlewareFactory;
+use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicTransactionNameMiddleware;
+use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicTransactionNameMiddlewareFactory;
 
 class ConfigProvider
 {
@@ -13,8 +15,9 @@ class ConfigProvider
                     NewRelicAgentInterface::class => NewRelicAgent::class,
                 ],
                 'factories' => [
-                    NewRelicAgent::class      => NewRelicAgentFactory::class,
-                    NewRelicMiddleware::class => NewRelicMiddlewareFactory::class,
+                    NewRelicAgent::class                     => NewRelicAgentFactory::class,
+                    NewRelicMiddleware::class                => NewRelicMiddlewareFactory::class,
+                    NewRelicTransactionNameMiddleware::class => NewRelicTransactionNameMiddlewareFactory::class,
                 ],
             ],
         ];
