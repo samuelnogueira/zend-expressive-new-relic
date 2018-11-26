@@ -91,4 +91,23 @@ interface NewRelicAgentInterface
      *                   If false, the transaction is marked as a web transaction.
      */
     public function backgroundJob(bool $flag = true): void;
+
+    /**
+     * Add a custom parameter to the current web transaction with the specified value.
+     * For example, you can add a customer's full name from your customer database. This parameter is shown in any
+     * transaction trace that results from this transaction.
+     * If the value given is a float with a value of NaN, Infinity, denorm or negative zero, the behavior of this
+     * function is undefined. For other floating point values, New Relic may discard 1 or more bits of precision (ULPs)
+     * from the given value. This function will return true if the parameter was added successfully. Warning: If you
+     * are using your custom parameters/attributes in Insights, avoid using any of Insights' reserved words for naming
+     * them.
+     *
+     * @link https://docs.newrelic.com/docs/agents/php-agent/php-agent-api/newrelic_add_custom_parameter
+     *
+     * @param string                       $key
+     * @param boolean|float|integer|string $value
+     *
+     * @return boolean
+     */
+    public function addCustomParameter(string $key, $value): bool;
 }

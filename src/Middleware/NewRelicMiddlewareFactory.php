@@ -8,7 +8,8 @@ class NewRelicMiddlewareFactory
     public function __invoke(ContainerInterface $container): NewRelicMiddleware
     {
         return new NewRelicMiddleware(
-            $container->get(NewRelicAgentInterface::class)
+            $container->get(NewRelicAgentInterface::class),
+            (bool) ini_get('newrelic.capture_params')
         );
     }
 }

@@ -1,4 +1,6 @@
-<?php namespace Samuelnogueira\ZendExpressiveNewRelic;
+<?php /** @noinspection PhpComposerExtensionStubsInspection */
+
+namespace Samuelnogueira\ZendExpressiveNewRelic;
 
 final class NewRelicAgent implements NewRelicAgentInterface
 {
@@ -67,5 +69,17 @@ final class NewRelicAgent implements NewRelicAgentInterface
         if ($this->extensionLoaded) {
             newrelic_background_job($flag);
         }
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function addCustomParameter(string $key, $value): bool
+    {
+        if ($this->extensionLoaded) {
+            return newrelic_add_custom_parameter($key, $value);
+        }
+
+        return false;
     }
 }
