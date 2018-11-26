@@ -1,4 +1,6 @@
-composer.phar
-composer.lock
-/vendor/
 /.idea/
+/composer.lock
+/composer.phar
+/test-app/composer.lock
+/test-app/vendor/
+/vendor/
