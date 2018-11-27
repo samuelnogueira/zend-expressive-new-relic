@@ -1,0 +1,7 @@
+parameters:
+  level: max
+  paths:
+    - src
+  reportUnmatchedIgnoredErrors: false
+  ignoreErrors:
+    - '#Function newrelic_[a-z_]+ not found\.#'

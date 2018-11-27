@@ -46,7 +46,7 @@
         ],
         "test-coverage": "phpunit --coverage-clover=tests/reports/coverage.xml",
         "cs-check": "phpcs",
-        "sa-check": "phpstan analyse --level max --no-progress src/"
+        "sa-check": "phpstan analyse --no-progress"
     },
     "license": "MIT",
     "authors": [
