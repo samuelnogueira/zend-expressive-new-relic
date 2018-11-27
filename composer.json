@@ -42,10 +42,8 @@
     "scripts": {
         "check": [
             "@cs-check",
-            "@sa-check",
-            "@test"
+            "@sa-check"
         ],
-        "test": "phpunit",
         "test-coverage": "phpunit --coverage-clover=tests/reports/coverage.xml",
         "cs-check": "phpcs",
         "sa-check": "phpstan analyse --level max --no-progress src/"

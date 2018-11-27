@@ -22,7 +22,7 @@ build:
                 php: 7.2
             tests:
                 override:
-                    - composer cs-check
+                    - composer check
                     - command: composer test-coverage
                       coverage:
                           file: 'tests/reports/coverage.xml'
