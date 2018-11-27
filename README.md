@@ -8,6 +8,8 @@
 
 PSR-15 Middleware for New Relic instrumentation of PHP middleware apps (e.g. Expressive)
 
+**Important note: because of the nature of the New Relic PHP Agent, this middleware does not work properly in async applications!** 
+
 ## Requirements
 
 * PHP >= 7.1
