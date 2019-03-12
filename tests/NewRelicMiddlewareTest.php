@@ -82,7 +82,10 @@ class NewRelicMiddlewareTest extends TestCase
         $newRelicAgentStub = new NewRelicAgentStub();
         $subject           = new NewRelicMiddleware($newRelicAgentStub, true);
         $request           = (new ServerRequest)
-            ->withQueryParams(['foo' => 'bar'])
+            ->withQueryParams([
+                'foo'  => 'bar',
+                'list' => ['a', 'b'],
+            ])
             ->withMethod(RequestMethodInterface::METHOD_GET)
             ->withUri(new Uri('http://www.example.com/qux?foo=bar'))
             ->withHeader('user-agent', 'smith');
@@ -106,6 +109,7 @@ class NewRelicMiddlewareTest extends TestCase
         static::assertAttributeEquals('/qux', 'url', $customParameters);
         static::assertAttributeEquals('smith', 'request.headers.user-agent', $customParameters);
         static::assertAttributeEquals('bar', 'request.parameters.foo', $customParameters);
+        static::assertAttributeEquals('[array]', 'request.parameters.list', $customParameters);
     }
 
     protected function setUp()
