@@ -66,8 +66,23 @@ final class NewRelicMiddleware implements MiddlewareInterface
     {
         if ($this->captureParams) {
             foreach ($queryParams as $key => $value) {
-                $this->newRelicAgent->addCustomParameter("request.parameters.$key", $value);
+                $this->newRelicAgent->addCustomParameter("request.parameters.$key", $this->toScalarParameter($value));
             }
+        }
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @return bool|float|int|string Returns the given value if it is a scalar, or a string identifying the variable
+     *                               type otherwise (ex. '[array]').
+     */
+    private function toScalarParameter($value)
+    {
+        if (is_scalar($value)) {
+            return $value;
+        } else {
+            return '[' . gettype($value) . ']';
         }
     }
 }
