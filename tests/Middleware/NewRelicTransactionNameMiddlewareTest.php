@@ -1,4 +1,6 @@
-<?php namespace Samuelnogueira\ZendExpressiveNewRelic\Tests\Middleware;
+<?php
+
+namespace Samuelnogueira\ZendExpressiveNewRelic\Tests\Middleware;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\MiddlewareInterface;
@@ -26,7 +28,7 @@ class NewRelicTransactionNameMiddlewareTest extends TestCase
         $route = new Route('/my-path1', $this->createMock(MiddlewareInterface::class));
         $route->setName('my.path.1');
 
-        $request = (new ServerRequest)
+        $request = (new ServerRequest())
             ->withAttribute(RouteResult::class, RouteResult::fromRoute($route));
 
         $this->newRelicAgent
@@ -42,14 +44,15 @@ class NewRelicTransactionNameMiddlewareTest extends TestCase
      */
     public function testProcessFailure()
     {
-        $request = (new ServerRequest)
-            ->withUri(new Uri('/my-path1'))
+        $path    = '/my-path1';
+        $request = (new ServerRequest())
+            ->withUri(new Uri($path))
             ->withAttribute(RouteResult::class, RouteResult::fromRouteFailure(null));
 
         $this->newRelicAgent
             ->expects(static::once())
             ->method('nameTransaction')
-            ->with($request->getUri()->getPath());
+            ->with($path);
 
         $this->subject->process($request, $this->createMock(RequestHandlerInterface::class));
     }

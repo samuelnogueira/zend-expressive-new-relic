@@ -1,10 +1,13 @@
-<?php namespace Samuelnogueira\ZendExpressiveNewRelic\Middleware;
+<?php
+
+namespace Samuelnogueira\ZendExpressiveNewRelic\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
+use Throwable;
 
 final class NewRelicMiddleware implements MiddlewareInterface
 {
@@ -27,7 +30,7 @@ final class NewRelicMiddleware implements MiddlewareInterface
      * @param RequestHandlerInterface $handler
      *
      * @return ResponseInterface
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
@@ -39,7 +42,7 @@ final class NewRelicMiddleware implements MiddlewareInterface
             $this->newRelicAgent->endTransaction();
 
             return $response;
-        } catch (\Throwable $throwable) {
+        } catch (Throwable $throwable) {
             $this->newRelicAgent->noticeError($throwable->getMessage(), $throwable);
             $this->newRelicAgent->endTransaction();
             throw $throwable;

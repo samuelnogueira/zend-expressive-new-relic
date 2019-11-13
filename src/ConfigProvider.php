@@ -1,4 +1,6 @@
-<?php namespace Samuelnogueira\ZendExpressiveNewRelic;
+<?php
+
+namespace Samuelnogueira\ZendExpressiveNewRelic;
 
 use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicMiddleware;
 use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicMiddlewareFactory;

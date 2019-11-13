@@ -1,6 +1,10 @@
-<?php /** @noinspection PhpComposerExtensionStubsInspection */
+<?php
+
+/** @noinspection PhpComposerExtensionStubsInspection */
 
 namespace Samuelnogueira\ZendExpressiveNewRelic;
+
+use Throwable;
 
 final class NewRelicAgent implements NewRelicAgentInterface
 {
@@ -42,7 +46,7 @@ final class NewRelicAgent implements NewRelicAgentInterface
     /**
      * @inheritdoc
      */
-    public function noticeError(string $string, \Throwable $exception = null): void
+    public function noticeError(string $string, Throwable $exception = null): void
     {
         if ($this->extensionLoaded) {
             ($exception !== null) ? newrelic_notice_error($string, $exception) : newrelic_notice_error($string);

@@ -1,6 +1,9 @@
-<?php namespace Samuelnogueira\ZendExpressiveNewRelic\Tests\Lib;
+<?php
+
+namespace Samuelnogueira\ZendExpressiveNewRelic\Tests\Lib;
 
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
+use Throwable;
 
 class NewRelicAgentStub implements NewRelicAgentInterface
 {
@@ -25,7 +28,7 @@ class NewRelicAgentStub implements NewRelicAgentInterface
     /**
      * {@inheritdoc}
      */
-    public function noticeError(string $string, \Throwable $exception = null): void
+    public function noticeError(string $string, Throwable $exception = null): void
     {
     }
 

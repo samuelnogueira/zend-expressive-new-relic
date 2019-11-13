@@ -1,6 +1,11 @@
-<?php namespace Samuelnogueira\ZendExpressiveNewRelic\Tests;
+<?php
 
+namespace Samuelnogueira\ZendExpressiveNewRelic\Tests;
+
+use Error;
 use Fig\Http\Message\RequestMethodInterface;
+use LogicException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -8,6 +13,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicMiddleware;
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
 use Samuelnogueira\ZendExpressiveNewRelic\Tests\Lib\NewRelicAgentStub;
+use Throwable;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Uri;
 
@@ -16,11 +22,11 @@ class NewRelicMiddlewareTest extends TestCase
     /** @var NewRelicMiddleware */
     private $subject;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface */
+    /** @var MockObject&NewRelicAgentInterface */
     private $newRelicAgent;
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function testProcess()
     {
@@ -46,15 +52,15 @@ class NewRelicMiddlewareTest extends TestCase
     }
 
     /**
-     * @expectedException \Error
-     * @throws \Throwable
+     * @expectedException Error
+     * @throws Throwable
      */
     public function testErrorHandling()
     {
         $request      = new ServerRequest();
         $handler      = $this->createMock(RequestHandlerInterface::class);
         $errorMessage = "Error string message with meaningful information";
-        $error        = new \Error($errorMessage);
+        $error        = new Error($errorMessage);
 
         $handler
             ->expects(static::once())
@@ -75,13 +81,13 @@ class NewRelicMiddlewareTest extends TestCase
     }
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function testCaptureParams()
     {
         $newRelicAgentStub = new NewRelicAgentStub();
         $subject           = new NewRelicMiddleware($newRelicAgentStub, true);
-        $request           = (new ServerRequest)
+        $request           = (new ServerRequest())
             ->withQueryParams([
                 'foo'  => 'bar',
                 'list' => ['a', 'b'],
@@ -95,21 +101,21 @@ class NewRelicMiddlewareTest extends TestCase
             ->expects(static::once())
             ->method('handle')
             ->with($request)
-            ->will(static::throwException(new \LogicException('bla')));
+            ->will(static::throwException(new LogicException('bla')));
 
         assert($request instanceof ServerRequestInterface);
         try {
             $subject->process($request, $handler);
-        } catch (\LogicException $e) {
+        } catch (LogicException $e) {
             static::assertSame('bla', $e->getMessage());
         }
 
-        $customParameters = (object) $newRelicAgentStub->getCustomParameters();
-        static::assertAttributeEquals('GET', 'request.method', $customParameters);
-        static::assertAttributeEquals('/qux', 'url', $customParameters);
-        static::assertAttributeEquals('smith', 'request.headers.user-agent', $customParameters);
-        static::assertAttributeEquals('bar', 'request.parameters.foo', $customParameters);
-        static::assertAttributeEquals('[array]', 'request.parameters.list', $customParameters);
+        $customParameters = $newRelicAgentStub->getCustomParameters();
+        static::assertEquals('GET', $customParameters['request.method']);
+        static::assertEquals('/qux', $customParameters['url']);
+        static::assertEquals('smith', $customParameters['request.headers.user-agent']);
+        static::assertEquals('bar', $customParameters['request.parameters.foo']);
+        static::assertEquals('[array]', $customParameters['request.parameters.list']);
     }
 
     protected function setUp()

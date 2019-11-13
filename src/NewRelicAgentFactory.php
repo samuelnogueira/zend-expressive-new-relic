@@ -1,4 +1,6 @@
-<?php namespace Samuelnogueira\ZendExpressiveNewRelic;
+<?php
+
+namespace Samuelnogueira\ZendExpressiveNewRelic;
 
 class NewRelicAgentFactory
 {

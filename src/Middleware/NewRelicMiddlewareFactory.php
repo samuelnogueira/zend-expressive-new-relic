@@ -1,4 +1,6 @@
-<?php namespace Samuelnogueira\ZendExpressiveNewRelic\Middleware;
+<?php
+
+namespace Samuelnogueira\ZendExpressiveNewRelic\Middleware;
 
 use Psr\Container\ContainerInterface;
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
