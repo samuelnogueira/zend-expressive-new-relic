@@ -19,7 +19,7 @@ build:
                     - composer test
         latest:
             environment:
-                php: 7.2
+                php: 7.3
             tests:
                 override:
                     - composer check

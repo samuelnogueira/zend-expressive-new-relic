@@ -44,6 +44,7 @@
             "@cs-check",
             "@sa-check"
         ],
+        "test": "phpunit",
         "test-coverage": "phpunit --coverage-clover=tests/reports/coverage.xml",
         "cs-check": "phpcs",
         "sa-check": "phpstan analyse --no-progress"
