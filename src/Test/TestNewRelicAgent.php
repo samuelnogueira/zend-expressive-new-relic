@@ -1,13 +1,17 @@
 <?php
+declare(strict_types=1);
 
-namespace Samuelnogueira\ZendExpressiveNewRelic\Tests\Lib;
+namespace Samuelnogueira\ZendExpressiveNewRelic\Test;
 
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
 use Throwable;
 
-class NewRelicAgentStub implements NewRelicAgentInterface
+final class TestNewRelicAgent implements NewRelicAgentInterface
 {
+    /** @var mixed[] */
     private $customParameters = [];
+    /** @var string */
+    private $transactionName = '';
 
     /**
      * {@inheritdoc}
@@ -37,7 +41,9 @@ class NewRelicAgentStub implements NewRelicAgentInterface
      */
     public function nameTransaction(string $name): bool
     {
-        return false;
+        $this->transactionName = $name;
+
+        return true;
     }
 
     /**
@@ -63,5 +69,10 @@ class NewRelicAgentStub implements NewRelicAgentInterface
     public function getCustomParameters(): array
     {
         return $this->customParameters;
+    }
+
+    public function getTransactionName(): string
+    {
+        return $this->transactionName;
     }
 }

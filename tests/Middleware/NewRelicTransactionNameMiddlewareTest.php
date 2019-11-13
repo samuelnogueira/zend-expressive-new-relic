@@ -6,7 +6,8 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicTransactionNameMiddleware;
-use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
+use Samuelnogueira\ZendExpressiveNewRelic\Test\TestNewRelicAgent;
+use Throwable;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Uri;
 use Zend\Expressive\Router\Route;
@@ -16,12 +17,11 @@ class NewRelicTransactionNameMiddlewareTest extends TestCase
 {
     /** @var NewRelicTransactionNameMiddleware */
     private $subject;
-
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface */
+    /** @var TestNewRelicAgent */
     private $newRelicAgent;
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function testProcess()
     {
@@ -31,16 +31,12 @@ class NewRelicTransactionNameMiddlewareTest extends TestCase
         $request = (new ServerRequest())
             ->withAttribute(RouteResult::class, RouteResult::fromRoute($route));
 
-        $this->newRelicAgent
-            ->expects(static::once())
-            ->method('nameTransaction')
-            ->with($route->getName());
-
         $this->subject->process($request, $this->createMock(RequestHandlerInterface::class));
+        static::assertEquals($route->getName(), $this->newRelicAgent->getTransactionName());
     }
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function testProcessFailure()
     {
@@ -49,17 +45,13 @@ class NewRelicTransactionNameMiddlewareTest extends TestCase
             ->withUri(new Uri($path))
             ->withAttribute(RouteResult::class, RouteResult::fromRouteFailure(null));
 
-        $this->newRelicAgent
-            ->expects(static::once())
-            ->method('nameTransaction')
-            ->with($path);
-
         $this->subject->process($request, $this->createMock(RequestHandlerInterface::class));
+        static::assertEquals($path, $this->newRelicAgent->getTransactionName());
     }
 
     protected function setUp()
     {
-        $this->newRelicAgent = $this->createMock(NewRelicAgentInterface::class);
+        $this->newRelicAgent = new TestNewRelicAgent();
         $this->subject       = new NewRelicTransactionNameMiddleware($this->newRelicAgent);
     }
 }

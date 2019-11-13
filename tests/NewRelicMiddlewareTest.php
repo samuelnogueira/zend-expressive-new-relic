@@ -12,7 +12,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicMiddleware;
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
-use Samuelnogueira\ZendExpressiveNewRelic\Tests\Lib\NewRelicAgentStub;
+use Samuelnogueira\ZendExpressiveNewRelic\Test\TestNewRelicAgent;
 use Throwable;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Uri;
@@ -85,7 +85,7 @@ class NewRelicMiddlewareTest extends TestCase
      */
     public function testCaptureParams()
     {
-        $newRelicAgentStub = new NewRelicAgentStub();
+        $newRelicAgentStub = new TestNewRelicAgent();
         $subject           = new NewRelicMiddleware($newRelicAgentStub, true);
         $request           = (new ServerRequest())
             ->withQueryParams([
