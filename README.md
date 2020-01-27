@@ -12,7 +12,7 @@ PSR-15 Middleware for New Relic instrumentation of Mezzio apps.
 
 ## Requirements
 
-* PHP >= 7.1
+* PHP >= 7.2
 * A [Mezzio](https://docs.mezzio.dev/mezzio/) application (formerly Zend Expressive) 
 
 ## Installation
