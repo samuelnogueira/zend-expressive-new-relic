@@ -5,14 +5,14 @@ declare(strict_types=1);
 use Samuelnogueira\ZendExpressiveNewRelic\ConfigProvider;
 use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicMiddleware;
 use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicTransactionNameMiddleware;
-use Zend\ConfigAggregator\ConfigAggregator;
-use Zend\Expressive\Application;
-use Zend\Expressive\Router\Middleware\DispatchMiddleware;
-use Zend\Expressive\Router\Middleware\RouteMiddleware;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Stratigility\Middleware\ErrorHandler;
+use Laminas\ConfigAggregator\ConfigAggregator;
+use Mezzio\Application;
+use Mezzio\Router\Middleware\DispatchMiddleware;
+use Mezzio\Router\Middleware\RouteMiddleware;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\Stratigility\Middleware\ErrorHandler;
 
-require dirname(__DIR__) . '/vendor/autoload.php';
+require dirname(__DIR__) . '/../vendor/autoload.php';
 
 /**
  * Self-called anonymous function that creates its own scope and keep the global namespace clean.
@@ -20,10 +20,10 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 (function () {
     // config.php
     $aggregator = new ConfigAggregator([
-        Zend\Expressive\ConfigProvider::class,
-        Zend\Expressive\Router\ConfigProvider::class,
-        Zend\Expressive\Router\FastRouteRouter\ConfigProvider::class,
-        Zend\Expressive\Swoole\ConfigProvider::class,
+        Mezzio\ConfigProvider::class,
+        Mezzio\Router\ConfigProvider::class,
+        Mezzio\Router\FastRouteRouter\ConfigProvider::class,
+        Mezzio\Swoole\ConfigProvider::class,
         ConfigProvider::class,
     ]);
     $config     = $aggregator->getMergedConfig();

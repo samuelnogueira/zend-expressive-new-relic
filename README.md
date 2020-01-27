@@ -6,14 +6,14 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/samuelnogueira/zend-expressive-new-relic/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/samuelnogueira/zend-expressive-new-relic/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/samuelnogueira/zend-expressive-new-relic/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/samuelnogueira/zend-expressive-new-relic/?branch=master)
 
-PSR-15 Middleware for New Relic instrumentation of PHP middleware apps (e.g. Expressive)
+PSR-15 Middleware for New Relic instrumentation of Mezzio apps.
 
 **Important note: because of the nature of the New Relic PHP Agent, this middleware does not work properly in async applications!** 
 
 ## Requirements
 
 * PHP >= 7.1
-* [Zend Expressive](https://docs.zendframework.com/zend-expressive/) 3 application
+* A [Mezzio](https://docs.mezzio.dev/mezzio/) application (formerly Zend Expressive) 
 
 ## Installation
 
@@ -29,9 +29,10 @@ composer require samuelnogueira/zend-expressive-new-relic
 
 use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicMiddleware;
 use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicTransactionNameMiddleware;
-use Zend\Expressive\Router\Middleware\RouteMiddleware;
+use Mezzio\Router\Middleware\RouteMiddleware;
+use Mezzio\Application;
 
-return function (\Zend\Expressive\Application $app): void {
+return static function (Application $app): void {
     // (...)
     
     // Profiling middleware 2nd most outer middleware to profile everything

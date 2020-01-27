@@ -8,10 +8,10 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicTransactionNameMiddleware;
 use Samuelnogueira\ZendExpressiveNewRelic\Test\TestNewRelicAgent;
 use Throwable;
-use Zend\Diactoros\ServerRequest;
-use Zend\Diactoros\Uri;
-use Zend\Expressive\Router\Route;
-use Zend\Expressive\Router\RouteResult;
+use Laminas\Diactoros\ServerRequest;
+use Laminas\Diactoros\Uri;
+use Mezzio\Router\Route;
+use Mezzio\Router\RouteResult;
 
 class NewRelicTransactionNameMiddlewareTest extends TestCase
 {
@@ -49,7 +49,7 @@ class NewRelicTransactionNameMiddlewareTest extends TestCase
         static::assertEquals($path, $this->newRelicAgent->getTransactionName());
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->newRelicAgent = new TestNewRelicAgent();
         $this->subject       = new NewRelicTransactionNameMiddleware($this->newRelicAgent);

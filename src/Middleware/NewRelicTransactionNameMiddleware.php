@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
-use Zend\Expressive\Router\RouteResult;
+use Mezzio\Router\RouteResult;
 
 class NewRelicTransactionNameMiddleware implements MiddlewareInterface
 {

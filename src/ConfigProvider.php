@@ -9,6 +9,9 @@ use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicTransactionNameMidd
 
 class ConfigProvider
 {
+    /**
+     * @return mixed[]
+     */
     public function __invoke(): array
     {
         return [

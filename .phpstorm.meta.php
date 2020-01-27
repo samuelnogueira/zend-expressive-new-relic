@@ -6,7 +6,7 @@ namespace PHPSTORM_META {
         \PHPUnit\Framework\TestCase::createMock('')  => [
             "" == "@",
         ],
-        \Zend\ServiceManager\ServiceManager::get('') => [
+        \Laminas\ServiceManager\ServiceManager::get('') => [
             "" == "@",
         ],
     ];

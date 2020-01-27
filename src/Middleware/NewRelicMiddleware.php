@@ -58,6 +58,9 @@ final class NewRelicMiddleware implements MiddlewareInterface
         $this->addRequestParametersCustomParameters($request->getQueryParams());
     }
 
+    /**
+     * @param string[][] $headers
+     */
     private function addRequestHeadersCustomParameters(array $headers): void
     {
         foreach ($headers as $name => $values) {
@@ -65,6 +68,9 @@ final class NewRelicMiddleware implements MiddlewareInterface
         }
     }
 
+    /**
+     * @param mixed[] $queryParams
+     */
     private function addRequestParametersCustomParameters(array $queryParams): void
     {
         if ($this->captureParams) {

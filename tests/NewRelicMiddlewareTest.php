@@ -14,8 +14,8 @@ use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicMiddleware;
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
 use Samuelnogueira\ZendExpressiveNewRelic\Test\TestNewRelicAgent;
 use Throwable;
-use Zend\Diactoros\ServerRequest;
-use Zend\Diactoros\Uri;
+use Laminas\Diactoros\ServerRequest;
+use Laminas\Diactoros\Uri;
 
 class NewRelicMiddlewareTest extends TestCase
 {
@@ -52,7 +52,6 @@ class NewRelicMiddlewareTest extends TestCase
     }
 
     /**
-     * @expectedException Error
      * @throws Throwable
      */
     public function testErrorHandling()
@@ -77,6 +76,7 @@ class NewRelicMiddlewareTest extends TestCase
             ->expects(static::once())
             ->method('noticeError')->with($errorMessage, $error);
 
+        $this->expectException(Error::class);
         $this->subject->process($request, $handler);
     }
 
@@ -118,7 +118,7 @@ class NewRelicMiddlewareTest extends TestCase
         static::assertEquals('[array]', $customParameters['request.parameters.list']);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->newRelicAgent = $this->createMock(NewRelicAgentInterface::class);
         $this->subject       = new NewRelicMiddleware($this->newRelicAgent, false);

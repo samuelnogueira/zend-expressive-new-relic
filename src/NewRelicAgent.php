@@ -22,8 +22,8 @@ final class NewRelicAgent implements NewRelicAgentInterface
     public function startTransaction($appname = null, $license = null): bool
     {
         if ($this->extensionLoaded) {
-            $appname = $appname !== null ? $appname : ini_get('newrelic.appname');
-            $license = $license !== null ? $license : ini_get('newrelic.license');
+            $appname = $appname !== null ? $appname : (string) ini_get('newrelic.appname');
+            $license = $license !== null ? $license : (string) ini_get('newrelic.license');
 
             return newrelic_start_transaction($appname, $license);
         }
