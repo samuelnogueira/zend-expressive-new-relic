@@ -1,5 +1,6 @@
 /.gitattributes export-ignore
 /.gitignore export-ignore
+/.phpstorm.meta.php export-ignore
 /composer.lock export-ignore
 /phpcs.xml export-ignore
 /phpunit.xml export-ignore
