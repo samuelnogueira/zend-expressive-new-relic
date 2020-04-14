@@ -20,23 +20,19 @@ class NewRelicTransactionNameMiddleware implements MiddlewareInterface
     }
 
     /**
-     * Process an incoming server request and return a response, optionally delegating
-     * response creation to a handler.
-     *
-     * @param ServerRequestInterface  $request
-     * @param RequestHandlerInterface $handler
-     *
-     * @return ResponseInterface
-     * @throws \Throwable
+     * @inheritDoc
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $this->newRelicAgent->nameTransaction($this->getTransactionName($request));
+        $transactionName = $this->getTransactionName($request);
+        if ($transactionName !== null) {
+            $this->newRelicAgent->nameTransaction($transactionName);
+        }
 
         return $handler->handle($request);
     }
 
-    private function getTransactionName(ServerRequestInterface $request): string
+    private function getTransactionName(ServerRequestInterface $request): ?string
     {
         $routeResult = $request->getAttribute(RouteResult::class);
         if ($routeResult instanceof RouteResult) {
@@ -46,6 +42,6 @@ class NewRelicTransactionNameMiddleware implements MiddlewareInterface
             }
         }
 
-        return $request->getUri()->getPath();
+        return null;
     }
 }
