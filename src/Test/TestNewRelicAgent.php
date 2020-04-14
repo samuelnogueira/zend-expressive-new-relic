@@ -11,8 +11,8 @@ final class TestNewRelicAgent implements NewRelicAgentInterface
 {
     /** @var mixed[] */
     private $customParameters = [];
-    /** @var string */
-    private $transactionName = '';
+    /** @var string|null */
+    private $transactionName;
 
     /**
      * {@inheritdoc}
@@ -72,7 +72,7 @@ final class TestNewRelicAgent implements NewRelicAgentInterface
         return $this->customParameters;
     }
 
-    public function getTransactionName(): string
+    public function getTransactionName(): ?string
     {
         return $this->transactionName;
     }

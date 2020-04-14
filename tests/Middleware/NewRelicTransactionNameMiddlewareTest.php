@@ -40,13 +40,12 @@ class NewRelicTransactionNameMiddlewareTest extends TestCase
      */
     public function testProcessFailure()
     {
-        $path    = '/my-path1';
         $request = (new ServerRequest())
-            ->withUri(new Uri($path))
+            ->withUri(new Uri('/my-path1'))
             ->withAttribute(RouteResult::class, RouteResult::fromRouteFailure(null));
 
         $this->subject->process($request, $this->createMock(RequestHandlerInterface::class));
-        static::assertEquals($path, $this->newRelicAgent->getTransactionName());
+        static::assertNull($this->newRelicAgent->getTransactionName());
     }
 
     protected function setUp(): void
