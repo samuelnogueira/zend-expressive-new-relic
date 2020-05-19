@@ -1,0 +1,3 @@
+GET http://localhost:8080/throw/an/error?id=99&sort[]=name&sort[]=city
+
+###

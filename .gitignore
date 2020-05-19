@@ -2,6 +2,7 @@
 /.phpunit.result.cache
 /composer.lock
 /composer.phar
+/tests/test-app/.env
 /tests/test-app/composer.lock
 /tests/test-app/vendor/
 /vendor/
