@@ -5,6 +5,8 @@
     <testsuites>
         <testsuite name="New Relic Middleware Tests">
             <directory>./tests</directory>
+            <exclude>./tests/test-app/</exclude>
+            <exclude>./tests/reports/</exclude>
         </testsuite>
     </testsuites>
 
