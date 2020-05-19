@@ -7,7 +7,7 @@ build:
         postgresql: false
         redis: false
     nodes:
-        old:
+        lowest:
             environment:
                 php: 7.2
             dependencies:
@@ -17,9 +17,9 @@ build:
             tests:
                 override:
                     - composer test
-        latest:
+        current:
             environment:
-                php: 7.3
+                php: 7.4
             tests:
                 override:
                     - composer check
