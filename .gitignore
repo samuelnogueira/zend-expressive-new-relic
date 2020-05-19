@@ -1,7 +1,7 @@
 /.idea/
-/test-app/vendor/
-/vendor/
 /.phpunit.result.cache
 /composer.lock
 /composer.phar
-/test-app/composer.lock
+/tests/test-app/composer.lock
+/tests/test-app/vendor/
+/vendor/

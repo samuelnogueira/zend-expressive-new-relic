@@ -12,7 +12,7 @@ use Mezzio\Router\Middleware\RouteMiddleware;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\Stratigility\Middleware\ErrorHandler;
 
-require dirname(__DIR__) . '/../vendor/autoload.php';
+require dirname(__DIR__) . '/vendor/autoload.php';
 
 /**
  * Self-called anonymous function that creates its own scope and keep the global namespace clean.

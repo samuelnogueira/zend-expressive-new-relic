@@ -55,5 +55,8 @@
             "name": "Samuel Nogueira",
             "email": "samuel.nogueira@jumia.com"
         }
-    ]
+    ],
+    "config": {
+        "sort-packages": true
+    }
 }
