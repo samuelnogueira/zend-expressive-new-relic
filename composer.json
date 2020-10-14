@@ -16,10 +16,11 @@
         "mezzio/mezzio-router": "^3.1"
     },
     "require-dev": {
+        "laminas/laminas-diactoros": "2.4.1",
+        "phpstan/phpstan": "0.12.49",
         "phpunit/phpunit": "9.4.1",
         "squizlabs/php_codesniffer": "3.5.6",
-        "laminas/laminas-diactoros": "2.4.1",
-        "phpstan/phpstan": "0.12.49"
+        "vimeo/psalm": "3.17.1"
     },
     "suggest": {
         "ext-newrelic": "Middleware will do nothing if this extension isn't loaded"
@@ -47,7 +48,10 @@
         "test": "phpunit",
         "test-coverage": "phpunit --coverage-clover=tests/reports/coverage.xml",
         "cs-check": "phpcs",
-        "sa-check": "phpstan analyse --no-progress"
+        "sa-check": [
+            "phpstan analyse --no-progress",
+            "psalm"
+        ]
     },
     "license": "MIT",
     "authors": [

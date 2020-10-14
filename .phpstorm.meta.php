@@ -1,13 +1,6 @@
 <?php
 
 namespace PHPSTORM_META {
-
-    $STATIC_METHOD_TYPES = [
-        \PHPUnit\Framework\TestCase::createMock('')  => [
-            "" == "@",
-        ],
-        \Laminas\ServiceManager\ServiceManager::get('') => [
-            "" == "@",
-        ],
-    ];
+    // This is also interpreted by psalm.
+    override(\Psr\Container\ContainerInterface::get(0), map(['' => '@']));
 }

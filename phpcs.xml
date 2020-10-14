@@ -1,9 +1,17 @@
 <?xml version="1.0"?>
-<ruleset>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+
+    <!-- display progress -->
+    <arg value="p"/>
+
     <!-- coding standard -->
     <rule ref="PSR12"/>
 
-    <!-- Paths to check -->
+    <!-- paths to check -->
     <file>src</file>
     <file>tests</file>
+
+    <!-- paths to ignore -->
+    <exclude-pattern>tests/test-app/vendor/</exclude-pattern>
 </ruleset>
