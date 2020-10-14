@@ -9,7 +9,7 @@ build:
     nodes:
         lowest:
             environment:
-                php: 7.2
+                php: 7.3
             dependencies:
                 override:
                     - composer update --prefer-lowest --no-interaction
