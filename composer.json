@@ -11,7 +11,7 @@
         "middleware"
     ],
     "require": {
-        "php": "^7.3",
+        "php": "^7.3 || ^8.0",
         "psr/http-server-middleware": "^1.0",
         "mezzio/mezzio-router": "^3.1"
     },
