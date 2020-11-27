@@ -1,10 +1,9 @@
 # zend-expressive-new-relic
 
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/samuelnogueira/zend-expressive-new-relic)
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE)
-[![Build Status](https://scrutinizer-ci.com/g/samuelnogueira/zend-expressive-new-relic/badges/build.png?b=master)](https://scrutinizer-ci.com/g/samuelnogueira/zend-expressive-new-relic/build-status/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/samuelnogueira/zend-expressive-new-relic/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/samuelnogueira/zend-expressive-new-relic/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/samuelnogueira/zend-expressive-new-relic/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/samuelnogueira/zend-expressive-new-relic/?branch=master)
+[![codecov](https://codecov.io/gh/samuelnogueira/zend-expressive-new-relic/branch/master/graph/badge.svg?token=L7P7H5TW2R)](https://codecov.io/gh/samuelnogueira/zend-expressive-new-relic)
 
 PSR-15 Middleware for New Relic instrumentation of Mezzio apps.
 

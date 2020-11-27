@@ -41,17 +41,17 @@
         }
     },
     "scripts": {
-        "check": [
-            "@cs-check",
-            "@sa-check"
-        ],
-        "test": "phpunit",
-        "test-coverage": "phpunit --coverage-clover=tests/reports/coverage.xml",
-        "cs-check": "phpcs",
-        "sa-check": [
+        "lint": [
+            "phpcs",
             "phpstan analyse --no-progress",
             "psalm"
-        ]
+        ],
+        "ci": [
+            "@lint",
+            "@test"
+        ],
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-clover=tests/reports/coverage.xml"
     },
     "license": "MIT",
     "authors": [

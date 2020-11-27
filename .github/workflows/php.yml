@@ -1,0 +1,61 @@
+name: PHP
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: [ 7.3, 7.4 ]
+        prefer: [ dist ]
+        include:
+          - php-version: 7.3
+            prefer: lowest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: phpunit
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ matrix.php-version }}-composer
+
+      - run: composer update --prefer-${{ matrix.prefer }} --no-progress
+
+      - run: composer show
+
+      - run: php -v
+
+      - run: php -i
+
+      - run: phpunit
+
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/cache@v2
+        with:
+          path: vendor/
+          key: ${{ hashFiles('composer.json') }}
+
+      - name: Install dependencies
+        run: composer update --no-progress
+
+      - run: composer lint
+
+      - run: phpunit --coverage-clover=tests/reports/coverage.xml
+
+      - uses: codecov/codecov-action@v1
+        with:
+          file: tests/reports/coverage.xml
+          fail_ci_if_error: true
