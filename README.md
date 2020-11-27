@@ -1,5 +1,6 @@
 # zend-expressive-new-relic
 
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/samuelnogueira/zend-expressive-new-relic)
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE)
 [![Build Status](https://scrutinizer-ci.com/g/samuelnogueira/zend-expressive-new-relic/badges/build.png?b=master)](https://scrutinizer-ci.com/g/samuelnogueira/zend-expressive-new-relic/build-status/master)
