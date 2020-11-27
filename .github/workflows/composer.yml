@@ -16,25 +16,28 @@ jobs:
     container: php:${{ matrix.php-verion }}
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Install packages
+        run: apt-get update && apt-get install -y git unzip
 
-    - name: Install composer
-      run: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+      - name: Install composer
+        run: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-    - name: Validate composer.json
-      run: composer validate
+      - uses: actions/checkout@v2
+      
+      - name: Validate composer.json
+        run: composer validate
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
 
-    - name: Install dependencies
-      run: composer install --no-progress --no-suggest
+      - name: Install dependencies
+        run: composer install --no-progress --no-suggest
 
-    - name: Run test suite
-      run: composer run-script ci
+      - name: Run test suite
+        run: composer run-script ci
