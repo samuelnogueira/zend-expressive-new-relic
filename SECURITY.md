@@ -11,5 +11,6 @@ Only the latest minor version is actively supported with security updates.
 
 ## Reporting a Vulnerability
 
-Please contact me directly to report any security vulnerabilities to the e-mail in my profile page: https://github.com/samuelnogueira
+Please contact me directly to report any security vulnerabilities to the e-mail in my profile page: https://github.com/samuelnogueira.
+
 Will respond ASAP during business hours.
