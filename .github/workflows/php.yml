@@ -5,8 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        prefer: [ lowest, dist ]
         php-version: [ 7.3, 7.4 ]
+        prefer: [ lowest, dist ]
     steps:
       - uses: actions/checkout@v2
 
@@ -33,12 +33,6 @@ jobs:
 
       - run: phpunit
 
-      - uses: codecov/codecov-action@v1
-        with:
-          file: tests/reports/coverage.xml
-          fail_ci_if_error: true
-          verbose: true
-
   coverage:
     runs-on: ubuntu-latest
     steps:
@@ -52,10 +46,11 @@ jobs:
       - name: Install dependencies
         run: composer update --no-progress
 
+      - run: composer lint
+
       - run: phpunit --coverage-clover=tests/reports/coverage.xml
 
       - uses: codecov/codecov-action@v1
         with:
           file: tests/reports/coverage.xml
           fail_ci_if_error: true
-          verbose: true
