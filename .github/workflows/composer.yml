@@ -8,16 +8,20 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-verion: [7.3, 7.4, 8.0-rc]
-    container: php:${{ matrix.php-verion }}
-
+        additional-flags: [""]
+        php-version: [7.3, 7.4]
+        include:
+          php-version: 7.3
+          composer-flags: --prefer-lowest
+    container: php:${{ matrix.php-version }}
     steps:
       - name: Install packages
-        run: apt-get update && apt-get install -y git unzip
+        run: |
+          apt-get update
+          apt-get install -y git unzip
 
       - name: Install composer
         run: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -27,17 +31,21 @@ jobs:
       - name: Validate composer.json
         run: composer validate
 
-      - name: Cache Composer packages
+      - name: Get Composer Cache Directory
         id: composer-cache
-        uses: actions/cache@v2
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - uses: actions/cache@v2
         with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer
           restore-keys: |
-            ${{ runner.os }}-php-
+            ${{ runner.os }}-composer
 
       - name: Install dependencies
-        run: composer install --no-progress --no-suggest
+        run: |
+          composer update ${{ matrix.additional-flags }} --no-progress --no-suggest
+          composer show
 
       - name: Run test suite
         run: composer run-script ci
