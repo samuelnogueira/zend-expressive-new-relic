@@ -28,11 +28,13 @@ jobs:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ matrix.php-version }}-${{ matrix.prefer }}-composer
 
-      - name: Install dependencies
-        run: |
-          composer validate
-          composer update --prefer-${{ matrix.prefer }} --no-progress
-          composer show
+      - run: composer update --prefer-${{ matrix.prefer }} --no-progress
+
+      - run: composer show
+
+      - run: php -v
+
+      - run: php -i
 
       - run: phpunit
 
