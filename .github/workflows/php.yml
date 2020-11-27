@@ -6,7 +6,10 @@ jobs:
     strategy:
       matrix:
         php-version: [ 7.3, 7.4 ]
-        prefer: [ lowest, dist ]
+        prefer: [ dist ]
+        include:
+          - php-version: 7.3
+            prefer: lowest
     steps:
       - uses: actions/checkout@v2
 
@@ -23,7 +26,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ matrix.php-verion }}-${{ matrix.prefer }}-composer
+          key: ${{ matrix.php-version }}-${{ matrix.prefer }}-composer
 
       - name: Install dependencies
         run: |
