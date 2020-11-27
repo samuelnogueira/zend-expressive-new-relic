@@ -18,12 +18,14 @@ jobs:
           php-version: ${{ matrix.php-version }}
           tools: phpunit
 
-      - uses: actions/cache@v2
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
         with:
-          path: vendor/
-          key: ${{ hashFiles('composer.lock') }}
-          restore-keys: |
-            ${{ matrix.php-version }}-${{ matrix.prefer }}-composer
+          path: ${{ steps.composer-cache.outputs.dir }}
 
       - run: composer update --prefer-${{ matrix.prefer }} --no-progress
 
