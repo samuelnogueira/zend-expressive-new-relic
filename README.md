@@ -7,11 +7,11 @@
 
 PSR-15 Middleware for New Relic instrumentation of Mezzio apps.
 
-**Important note: because of the nature of the New Relic PHP Agent, this middleware does not work properly in async applications!** 
+:warning: **Will not work correctly in async applications (ex. Swoole Coroutine)** :warning:
 
 ## Requirements
 
-* PHP >= 7.3
+* PHP ^7.3 or ^8.0
 * A [Mezzio](https://docs.mezzio.dev/mezzio/) application (formerly Zend Expressive) 
 
 ## Installation
