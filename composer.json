@@ -17,7 +17,7 @@
     },
     "require-dev": {
         "laminas/laminas-diactoros": "2.5.0",
-        "phpstan/phpstan": "0.12.58",
+        "phpstan/phpstan": "0.12.59",
         "phpunit/phpunit": "9.5.0",
         "squizlabs/php_codesniffer": "3.5.8",
         "vimeo/psalm": "4.3.1"
