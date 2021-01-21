@@ -53,7 +53,7 @@ jobs:
 
       - run: composer lint
 
-      - run: vendor/bin/phpunit --coverage-clover=tests/reports/coverage.xml
+      - run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=tests/reports/coverage.xml
 
       - uses: codecov/codecov-action@v1
         with:
