@@ -53,7 +53,7 @@ jobs:
 
       - run: composer lint
 
-      - run: phpunit --coverage-clover=tests/reports/coverage.xml
+      - run: vendor/bin/phpunit --coverage-clover=tests/reports/coverage.xml
 
       - uses: codecov/codecov-action@v1
         with:
