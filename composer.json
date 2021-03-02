@@ -17,10 +17,10 @@
     },
     "require-dev": {
         "laminas/laminas-diactoros": "2.5.0",
-        "phpstan/phpstan": "0.12.78",
+        "phpstan/phpstan": "0.12.80",
         "phpunit/phpunit": "9.5.2",
         "squizlabs/php_codesniffer": "3.5.8",
-        "vimeo/psalm": "4.6.1"
+        "vimeo/psalm": "4.6.2"
     },
     "suggest": {
         "ext-newrelic": "Middleware will do nothing if this extension isn't loaded"
