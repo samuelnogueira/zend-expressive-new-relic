@@ -5,3 +5,5 @@ parameters:
   reportUnmatchedIgnoredErrors: false
   ignoreErrors:
     - '#Function newrelic_[a-z_]+ not found\.#'
+  stubFiles:
+    - stubs/ContainerInterface.stub
