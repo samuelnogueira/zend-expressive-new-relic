@@ -64,6 +64,11 @@ final class TestNewRelicAgent implements NewRelicAgentInterface
         return true;
     }
 
+    public function customMetric(string $metric_name, float $value): bool
+    {
+        return true;
+    }
+
     /**
      * @return mixed[]
      */

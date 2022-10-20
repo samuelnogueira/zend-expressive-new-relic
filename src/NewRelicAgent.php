@@ -6,6 +6,14 @@ namespace Samuelnogueira\ZendExpressiveNewRelic;
 
 use Throwable;
 
+use function newrelic_add_custom_parameter;
+use function newrelic_background_job;
+use function newrelic_custom_metric;
+use function newrelic_end_transaction;
+use function newrelic_name_transaction;
+use function newrelic_notice_error;
+use function newrelic_start_transaction;
+
 final class NewRelicAgent implements NewRelicAgentInterface
 {
     /** @var bool */
@@ -82,6 +90,18 @@ final class NewRelicAgent implements NewRelicAgentInterface
     {
         if ($this->extensionLoaded) {
             return newrelic_add_custom_parameter($key, $value);
+        }
+
+        return false;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function customMetric(string $metric_name, float $value): bool
+    {
+        if ($this->extensionLoaded) {
+            return newrelic_custom_metric($metric_name, $value);
         }
 
         return false;
