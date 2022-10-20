@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Samuelnogueira\ZendExpressiveNewRelic\Tests\Recorder;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
-use Samuelnogueira\ZendExpressiveNewRelic\Exception\InvalidArgumentException;
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
 use Samuelnogueira\ZendExpressiveNewRelic\Recorder\NewRelicExternalServiceSegmentRecorder;
 use PHPUnit\Framework\TestCase;

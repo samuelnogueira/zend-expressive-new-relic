@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Samuelnogueira\ZendExpressiveNewRelic\Recorder;
 
-use Samuelnogueira\ZendExpressiveNewRelic\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
 
 use function str_contains;
