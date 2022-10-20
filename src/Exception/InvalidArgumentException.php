@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Samuelnogueira\ZendExpressiveNewRelic\Exception;
 
-use Exception;
+use InvalidArgumentException as NativeInvalidArgumentException;
 
-final class InvalidArgumentException extends Exception implements ZendExpressiveNewRelicException
+final class InvalidArgumentException extends NativeInvalidArgumentException implements ZendExpressiveNewRelicException
 {
 }
