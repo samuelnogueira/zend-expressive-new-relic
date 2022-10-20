@@ -9,6 +9,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
 use Samuelnogueira\ZendExpressiveNewRelic\Recorder\NewRelicExternalServiceSegmentRecorder;
 use PHPUnit\Framework\TestCase;
+use Samuelnogueira\ZendExpressiveNewRelic\Test\TestNewRelicAgent;
 
 use function usleep;
 
@@ -83,6 +84,20 @@ final class NewRelicExternalServiceSegmentRecorderTest extends TestCase
                 },
             )
         );
+    }
+
+    public function testRecordWithTestAgent(): void
+    {
+        $agent   = new TestNewRelicAgent();
+        $subject = new NewRelicExternalServiceSegmentRecorder($agent);
+
+        $subject->record(
+            'example.local',
+            static function () {
+            }
+        );
+
+        self::assertNotEmpty($agent->getCustomMetrics());
     }
 
     protected function setUp(): void

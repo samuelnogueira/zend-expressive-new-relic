@@ -13,6 +13,8 @@ final class TestNewRelicAgent implements NewRelicAgentInterface
     private $customParameters = [];
     /** @var string|null */
     private $transactionName;
+    /** @var list<array{string, float}> */
+    private $customMetrics = [];
 
     /**
      * {@inheritdoc}
@@ -66,6 +68,8 @@ final class TestNewRelicAgent implements NewRelicAgentInterface
 
     public function customMetric(string $metric_name, float $value): bool
     {
+        $this->customMetrics[] = [$metric_name, $value];
+
         return true;
     }
 
@@ -80,5 +84,13 @@ final class TestNewRelicAgent implements NewRelicAgentInterface
     public function getTransactionName(): ?string
     {
         return $this->transactionName;
+    }
+
+    /**
+     * @return list<array{string, float}>
+     */
+    public function getCustomMetrics(): array
+    {
+        return $this->customMetrics;
     }
 }
