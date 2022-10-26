@@ -114,4 +114,25 @@ interface NewRelicAgentInterface
      * @return boolean
      */
     public function addCustomParameter(string $key, $value): bool;
+
+    /**
+     * Add a custom metric (in milliseconds) to time a component of your app not captured by default.
+     *
+     * Name your custom metrics with a Custom/ prefix (for example, Custom/MyMetric). This helps the UI organize your
+     * custom metrics in one place, and it makes them easily findable via the Metric Explorer. Records timing in
+     * milliseconds. For example: a value of 4 is stored as .004 seconds in New Relic's systems. If the value is NaN,
+     * Infinity, denorm or negative zero, the behavior of this function is undefined. New Relic may discard 1 or more
+     * bits of precision (ULPs) from the given value.
+     *
+     * This function will return true if the metric was added successfully.
+     *
+     * @link https://docs.newrelic.com/docs/agents/php-agent/php-agent-api/newreliccustommetric-php-agent-api/
+     * @see  https://docs.newrelic.com/docs/agents/manage-apm-agents/agent-data/custom-metrics/
+     *
+     * @param string $metric_name
+     * @param float  $value
+     *
+     * @return bool
+     */
+    public function customMetric(string $metric_name, float $value): bool;
 }
