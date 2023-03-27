@@ -3,7 +3,6 @@
 ![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/samuelnogueira/zend-expressive-new-relic)
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE)
-[![codecov](https://codecov.io/gh/samuelnogueira/zend-expressive-new-relic/branch/master/graph/badge.svg?token=L7P7H5TW2R)](https://codecov.io/gh/samuelnogueira/zend-expressive-new-relic)
 
 PSR-15 Middleware for New Relic instrumentation of Mezzio apps.
 
