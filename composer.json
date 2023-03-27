@@ -50,8 +50,7 @@
             "@lint",
             "@test"
         ],
-        "test": "phpunit",
-        "test-coverage": "phpunit --coverage-clover=tests/reports/coverage.xml"
+        "test": "phpunit"
     },
     "license": "MIT",
     "authors": [
