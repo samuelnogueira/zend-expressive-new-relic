@@ -16,7 +16,6 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          tools: phpunit
 
       - name: Get composer cache directory
         id: composer-cache
@@ -36,7 +35,7 @@ jobs:
 
       - run: php -i
 
-      - run: phpunit
+      - run: vendor/bin/phpunit
 
   coverage:
     runs-on: ubuntu-latest
