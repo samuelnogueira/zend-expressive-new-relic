@@ -16,7 +16,7 @@
         "mezzio/mezzio-router": "^3.1"
     },
     "require-dev": {
-        "laminas/laminas-diactoros": "2.14.0 || 2.24.0",
+        "guzzlehttp/psr7": "2.5.0",
         "phpstan/phpstan": "1.10.8",
         "phpunit/phpunit": "9.6.6",
         "squizlabs/php_codesniffer": "3.7.2",

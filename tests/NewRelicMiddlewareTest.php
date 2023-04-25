@@ -4,6 +4,7 @@ namespace Samuelnogueira\ZendExpressiveNewRelic\Tests;
 
 use Error;
 use Fig\Http\Message\RequestMethodInterface;
+use GuzzleHttp\Psr7\ServerRequest;
 use LogicException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -14,8 +15,6 @@ use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicMiddleware;
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
 use Samuelnogueira\ZendExpressiveNewRelic\Test\TestNewRelicAgent;
 use Throwable;
-use Laminas\Diactoros\ServerRequest;
-use Laminas\Diactoros\Uri;
 
 class NewRelicMiddlewareTest extends TestCase
 {
@@ -30,7 +29,7 @@ class NewRelicMiddlewareTest extends TestCase
      */
     public function testProcess()
     {
-        $request  = new ServerRequest();
+        $request  = new ServerRequest(RequestMethodInterface::METHOD_GET, '/');
         $response = $this->createMock(ResponseInterface::class);
         $handler  = $this->createMock(RequestHandlerInterface::class);
 
@@ -56,7 +55,7 @@ class NewRelicMiddlewareTest extends TestCase
      */
     public function testErrorHandling()
     {
-        $request      = new ServerRequest();
+        $request      = new ServerRequest(RequestMethodInterface::METHOD_GET, '/');
         $handler      = $this->createMock(RequestHandlerInterface::class);
         $errorMessage = "Error string message with meaningful information";
         $error        = new Error($errorMessage);
@@ -87,13 +86,14 @@ class NewRelicMiddlewareTest extends TestCase
     {
         $newRelicAgentStub = new TestNewRelicAgent();
         $subject           = new NewRelicMiddleware($newRelicAgentStub, true);
-        $request           = (new ServerRequest())
+        $request           = (new ServerRequest(
+            RequestMethodInterface::METHOD_GET,
+            'http://www.example.com/qux?foo=bar',
+        ))
             ->withQueryParams([
                 'foo'  => 'bar',
                 'list' => ['a', 'b'],
             ])
-            ->withMethod(RequestMethodInterface::METHOD_GET)
-            ->withUri(new Uri('http://www.example.com/qux?foo=bar'))
             ->withHeader('user-agent', 'smith');
 
         $handler = $this->createMock(RequestHandlerInterface::class);
