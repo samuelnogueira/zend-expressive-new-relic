@@ -4,6 +4,7 @@ namespace Samuelnogueira\ZendExpressiveNewRelic\Tests;
 
 use Error;
 use Fig\Http\Message\RequestMethodInterface;
+use GuzzleHttp\Psr7\ServerRequest;
 use LogicException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -14,10 +15,8 @@ use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicMiddleware;
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
 use Samuelnogueira\ZendExpressiveNewRelic\Test\TestNewRelicAgent;
 use Throwable;
-use Laminas\Diactoros\ServerRequest;
-use Laminas\Diactoros\Uri;
 
-class NewRelicMiddlewareTest extends TestCase
+final class NewRelicMiddlewareTest extends TestCase
 {
     /** @var NewRelicMiddleware */
     private $subject;
@@ -25,97 +24,92 @@ class NewRelicMiddlewareTest extends TestCase
     /** @var MockObject&NewRelicAgentInterface */
     private $newRelicAgent;
 
-    /**
-     * @throws Throwable
-     */
-    public function testProcess()
+    /** @throws Throwable */
+    public function testProcess(): void
     {
-        $request  = new ServerRequest();
+        $request  = new ServerRequest(RequestMethodInterface::METHOD_GET, '/');
         $response = $this->createMock(ResponseInterface::class);
         $handler  = $this->createMock(RequestHandlerInterface::class);
 
         $handler
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('handle')
             ->with($request)
             ->willReturn($response);
         $this->newRelicAgent
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('startTransaction');
         $this->newRelicAgent
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('endTransaction');
 
         $result = $this->subject->process($request, $handler);
 
-        static::assertSame($response, $result);
+        self::assertSame($response, $result);
     }
 
-    /**
-     * @throws Throwable
-     */
-    public function testErrorHandling()
+    /** @throws Throwable */
+    public function testErrorHandling(): void
     {
-        $request      = new ServerRequest();
+        $request      = new ServerRequest(RequestMethodInterface::METHOD_GET, '/');
         $handler      = $this->createMock(RequestHandlerInterface::class);
         $errorMessage = "Error string message with meaningful information";
         $error        = new Error($errorMessage);
 
         $handler
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('handle')
             ->with($request)
-            ->will(static::throwException($error));
+            ->will(self::throwException($error));
         $this->newRelicAgent
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('startTransaction');
         $this->newRelicAgent
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('endTransaction');
         $this->newRelicAgent
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('noticeError')->with($errorMessage, $error);
 
         $this->expectException(Error::class);
         $this->subject->process($request, $handler);
     }
 
-    /**
-     * @throws Throwable
-     */
-    public function testCaptureParams()
+    /** @throws Throwable */
+    public function testCaptureParams(): void
     {
         $newRelicAgentStub = new TestNewRelicAgent();
         $subject           = new NewRelicMiddleware($newRelicAgentStub, true);
-        $request           = (new ServerRequest())
+        $request           = (new ServerRequest(
+            RequestMethodInterface::METHOD_GET,
+            'https://www.example.com/qux?foo=bar',
+        ))
             ->withQueryParams([
                 'foo'  => 'bar',
                 'list' => ['a', 'b'],
             ])
-            ->withMethod(RequestMethodInterface::METHOD_GET)
-            ->withUri(new Uri('http://www.example.com/qux?foo=bar'))
             ->withHeader('user-agent', 'smith');
 
         $handler = $this->createMock(RequestHandlerInterface::class);
         $handler
-            ->expects(static::once())
+            ->expects(self::once())
             ->method('handle')
             ->with($request)
-            ->will(static::throwException(new LogicException('bla')));
+            ->will(self::throwException(new LogicException('bla')));
 
         assert($request instanceof ServerRequestInterface);
         try {
             $subject->process($request, $handler);
         } catch (LogicException $e) {
-            static::assertSame('bla', $e->getMessage());
+            self::assertSame('bla', $e->getMessage());
         }
 
         $customParameters = $newRelicAgentStub->getCustomParameters();
-        static::assertEquals('GET', $customParameters['request.method']);
-        static::assertEquals('/qux', $customParameters['url']);
-        static::assertEquals('smith', $customParameters['request.headers.user-agent']);
-        static::assertEquals('bar', $customParameters['request.parameters.foo']);
-        static::assertEquals('[array]', $customParameters['request.parameters.list']);
+        self::assertEquals('GET', $customParameters['request.method']);
+        self::assertEquals('/qux', $customParameters['url']);
+        self::assertEquals('smith', $customParameters['request.headers.user-agent']);
+        self::assertEquals('bar', $customParameters['request.parameters.foo']);
+        self::assertEquals('[array]', $customParameters['request.parameters.list']);
     }
 
     protected function setUp(): void
