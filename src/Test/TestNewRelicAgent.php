@@ -35,7 +35,7 @@ final class TestNewRelicAgent implements NewRelicAgentInterface
     /**
      * {@inheritdoc}
      */
-    public function noticeError(string $string, Throwable $exception = null): void
+    public function noticeError(string $string, ?Throwable $exception = null): void
     {
     }
 
