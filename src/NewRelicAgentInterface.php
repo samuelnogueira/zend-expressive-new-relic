@@ -51,12 +51,12 @@ interface NewRelicAgentInterface
      *
      * @link https://docs.newrelic.com/docs/agents/php-agent/configuration/php-agent-api#api-notice-error
      *
-     * @param string    $string
-     * @param Throwable $exception [optional]
+     * @param string         $string
+     * @param Throwable|null $exception [optional]
      *
      * @return void
      */
-    public function noticeError(string $string, Throwable $exception = null): void;
+    public function noticeError(string $string, ?Throwable $exception = null): void;
 
     /**
      * Set custom name for current transaction.

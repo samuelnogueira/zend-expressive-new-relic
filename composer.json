@@ -11,7 +11,7 @@
         "middleware"
     ],
     "require": {
-        "php": "^7.3 || ^8.0",
+        "php": "^7.3 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
         "psr/http-server-middleware": "^1.0",
         "mezzio/mezzio-router": "^3.1"
     },
@@ -20,7 +20,7 @@
         "phpstan/phpstan": "1.12.7",
         "phpunit/phpunit": "9.6.19",
         "squizlabs/php_codesniffer": "3.11.2",
-        "vimeo/psalm": "4.30.0"
+        "vimeo/psalm": "^5.26"
     },
     "suggest": {
         "ext-newrelic": "Middleware will do nothing if this extension isn't loaded"
