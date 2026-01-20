@@ -2,6 +2,7 @@
 
 namespace Samuelnogueira\ZendExpressiveNewRelic\Middleware;
 
+use Override;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -32,6 +33,7 @@ final class NewRelicMiddleware implements MiddlewareInterface
      * @return ResponseInterface
      * @throws Throwable
      */
+    #[Override]
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $this->newRelicAgent->startTransaction();

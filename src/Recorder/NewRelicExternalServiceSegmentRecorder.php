@@ -9,6 +9,7 @@ use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
 
 use function str_contains;
 
+/** @api */
 final class NewRelicExternalServiceSegmentRecorder
 {
     /** @var NewRelicAgentInterface */
@@ -35,9 +36,9 @@ final class NewRelicExternalServiceSegmentRecorder
             throw new InvalidArgumentException("Host must not contain forward-slashes (`/`), '$host' given.");
         }
 
-        $start    = microtime(true) * 1000;
+        $start    = microtime(true) * 1000.0;
         $result   = $func();
-        $end      = microtime(true) * 1000;
+        $end      = microtime(true) * 1000.0;
         $duration = $end - $start;
 
         // Only report external service metrics if function did not fail with an exception.

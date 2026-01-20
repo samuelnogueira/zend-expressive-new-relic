@@ -5,6 +5,7 @@ namespace Samuelnogueira\ZendExpressiveNewRelic\Middleware;
 use Psr\Container\ContainerInterface;
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
 
+/** @final */
 class NewRelicMiddlewareFactory
 {
     public function __invoke(ContainerInterface $container): NewRelicMiddleware

@@ -4,6 +4,7 @@
 
 namespace Samuelnogueira\ZendExpressiveNewRelic;
 
+use Override;
 use Throwable;
 
 use function newrelic_add_custom_parameter;
@@ -27,6 +28,7 @@ final class NewRelicAgent implements NewRelicAgentInterface
     /**
      * @inheritdoc
      */
+    #[Override]
     public function startTransaction($appname = null, $license = null): bool
     {
         if ($this->extensionLoaded) {
@@ -42,6 +44,7 @@ final class NewRelicAgent implements NewRelicAgentInterface
     /**
      * @inheritdoc
      */
+    #[Override]
     public function endTransaction($ignore = false): bool
     {
         if ($this->extensionLoaded) {
@@ -54,6 +57,7 @@ final class NewRelicAgent implements NewRelicAgentInterface
     /**
      * @inheritdoc
      */
+    #[Override]
     public function noticeError(string $string, ?Throwable $exception = null): void
     {
         if ($this->extensionLoaded) {
@@ -64,6 +68,7 @@ final class NewRelicAgent implements NewRelicAgentInterface
     /**
      * @inheritdoc
      */
+    #[Override]
     public function nameTransaction(string $name): bool
     {
         if ($this->extensionLoaded) {
@@ -76,6 +81,7 @@ final class NewRelicAgent implements NewRelicAgentInterface
     /**
      * @inheritdoc
      */
+    #[Override]
     public function backgroundJob(bool $flag = true): void
     {
         if ($this->extensionLoaded) {
@@ -86,6 +92,7 @@ final class NewRelicAgent implements NewRelicAgentInterface
     /**
      * @inheritdoc
      */
+    #[Override]
     public function addCustomParameter(string $key, $value): bool
     {
         if ($this->extensionLoaded) {
@@ -98,6 +105,7 @@ final class NewRelicAgent implements NewRelicAgentInterface
     /**
      * @inheritdoc
      */
+    #[Override]
     public function customMetric(string $metric_name, float $value): bool
     {
         if ($this->extensionLoaded) {
