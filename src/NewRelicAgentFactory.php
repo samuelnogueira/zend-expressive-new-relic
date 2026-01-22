@@ -2,6 +2,7 @@
 
 namespace Samuelnogueira\ZendExpressiveNewRelic;
 
+/** @final */
 class NewRelicAgentFactory
 {
     public function __invoke(): NewRelicAgent

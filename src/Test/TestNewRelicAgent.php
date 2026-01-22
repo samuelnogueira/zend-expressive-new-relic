@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Samuelnogueira\ZendExpressiveNewRelic\Test;
 
+use Override;
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
 use Throwable;
 
+/** @api */
 final class TestNewRelicAgent implements NewRelicAgentInterface
 {
     /** @var mixed[] */
@@ -19,6 +21,7 @@ final class TestNewRelicAgent implements NewRelicAgentInterface
     /**
      * {@inheritdoc}
      */
+    #[Override]
     public function startTransaction($appname = null, $license = null): bool
     {
         return false;
@@ -27,6 +30,7 @@ final class TestNewRelicAgent implements NewRelicAgentInterface
     /**
      * {@inheritdoc}
      */
+    #[Override]
     public function endTransaction($ignore = false): bool
     {
         return false;
@@ -35,6 +39,7 @@ final class TestNewRelicAgent implements NewRelicAgentInterface
     /**
      * {@inheritdoc}
      */
+    #[Override]
     public function noticeError(string $string, ?Throwable $exception = null): void
     {
     }
@@ -42,6 +47,7 @@ final class TestNewRelicAgent implements NewRelicAgentInterface
     /**
      * {@inheritdoc}
      */
+    #[Override]
     public function nameTransaction(string $name): bool
     {
         $this->transactionName = $name;
@@ -52,6 +58,7 @@ final class TestNewRelicAgent implements NewRelicAgentInterface
     /**
      * {@inheritdoc}
      */
+    #[Override]
     public function backgroundJob(bool $flag = true): void
     {
     }
@@ -59,6 +66,7 @@ final class TestNewRelicAgent implements NewRelicAgentInterface
     /**
      * {@inheritdoc}
      */
+    #[Override]
     public function addCustomParameter(string $key, $value): bool
     {
         $this->customParameters[$key] = $value;
@@ -66,6 +74,7 @@ final class TestNewRelicAgent implements NewRelicAgentInterface
         return true;
     }
 
+    #[Override]
     public function customMetric(string $metric_name, float $value): bool
     {
         $this->customMetrics[] = [$metric_name, $value];

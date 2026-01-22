@@ -7,6 +7,10 @@ use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicMiddlewareFactory;
 use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicTransactionNameMiddleware;
 use Samuelnogueira\ZendExpressiveNewRelic\Middleware\NewRelicTransactionNameMiddlewareFactory;
 
+/**
+ * @api
+ * @final
+ */
 class ConfigProvider
 {
     /**

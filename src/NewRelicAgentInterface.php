@@ -19,6 +19,7 @@ interface NewRelicAgentInterface
      * @param string|null $appname = ini_get('newrelic.appname')
      * @param string|null $license = ini_get('newrelic.license')
      *
+     * @psalm-suppress PossiblyUnusedReturnValue
      * @return bool TRUE if the transaction was successfully started, FALSE otherwise
      */
     public function startTransaction($appname = null, $license = null): bool;
@@ -36,6 +37,7 @@ interface NewRelicAgentInterface
      *
      * @param bool $ignore
      *
+     * @psalm-suppress PossiblyUnusedReturnValue
      * @return bool Returns true if the transaction was successfully ended and data was sent to the New Relic daemon.
      */
     public function endTransaction($ignore = false): bool;
@@ -75,6 +77,7 @@ interface NewRelicAgentInterface
      *
      * @param string $name Required. Name of the transaction.
      *
+     * @psalm-suppress PossiblyUnusedReturnValue
      * @return bool Returns true if the transaction name was successfully changed. If false is returned, check the
      *              agent log for more information.
      */
@@ -111,6 +114,7 @@ interface NewRelicAgentInterface
      * @param string                       $key
      * @param boolean|float|integer|string $value
      *
+     * @psalm-suppress PossiblyUnusedReturnValue
      * @return boolean
      */
     public function addCustomParameter(string $key, $value): bool;
@@ -132,6 +136,7 @@ interface NewRelicAgentInterface
      * @param string $metric_name
      * @param float  $value
      *
+     * @psalm-suppress PossiblyUnusedReturnValue
      * @return bool
      */
     public function customMetric(string $metric_name, float $value): bool;

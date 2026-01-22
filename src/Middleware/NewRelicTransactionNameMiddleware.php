@@ -2,6 +2,7 @@
 
 namespace Samuelnogueira\ZendExpressiveNewRelic\Middleware;
 
+use Override;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -9,6 +10,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Samuelnogueira\ZendExpressiveNewRelic\NewRelicAgentInterface;
 use Mezzio\Router\RouteResult;
 
+/** @final */
 class NewRelicTransactionNameMiddleware implements MiddlewareInterface
 {
     /** @var NewRelicAgentInterface */
@@ -22,6 +24,7 @@ class NewRelicTransactionNameMiddleware implements MiddlewareInterface
     /**
      * @inheritDoc
      */
+    #[Override]
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $transactionName = $this->getTransactionName($request);
