@@ -17,10 +17,10 @@
         "symfony/polyfill-php83": "^1.33"
     },
     "require-dev": {
-        "guzzlehttp/psr7": "3.1.0",
-        "phpstan/phpstan": "2.2.9",
+        "guzzlehttp/psr7": "3.2.0",
+        "phpstan/phpstan": "2.3.4",
         "phpunit/phpunit": "9.6.34",
-        "psalm/phar": "6.16.1",
+        "psalm/phar": "6.20.4",
         "squizlabs/php_codesniffer": "4.0.4"
     },
     "suggest": {
